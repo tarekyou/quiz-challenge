@@ -55,3 +55,57 @@ let questions = [
         correctAns: "all of the above"
     },
 ];
+
+//start code
+
+let initialTime = 75;
+let questionQ = [questions[i]];
+
+
+
+
+
+var startBtn = document.getElementById("start-button");
+startBtn.addEventListener("click", startQuestionQ);
+
+
+
+var countDown = function(){
+    var timerCount = setInterval(initialTime--, 1000)
+    if (timerCount === 0 || questionQ === questions.length){
+    
+        endQuizz();
+    }
+    return timerCount;
+};
+
+
+
+var startQuestionQ = function(){
+    countDown();
+    var nextQuestion = "";
+    for (let i = 0; questionQ < questions.length; i++) {
+        nextQuestion= questionQ[i] ;
+    }
+};
+
+var checkCorrect = function(){
+    var checkAnswer = questions.correctAns[i];
+    for (let i = 0; questionQ < questions.length; i++){
+        if (checkAnswer !== correctAns){
+            timerCount = timerCount - 10;
+        };
+    };
+};    
+
+
+
+
+
+
+
+
+
+var endQuizz = function(){
+    alert("Game over");
+}
