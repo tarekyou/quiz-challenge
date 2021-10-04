@@ -59,7 +59,7 @@ let questions = [
 //start code
 
 let initialTime = 75;
-let questionQ = [questions];
+let questionQ = 0;
 
 
 
@@ -72,7 +72,7 @@ var startBtn = document.getElementById("start-button");
 
 var countDown = function(){
     var timerCount = setInterval(initialTime--, 1000)
-    if (timerCount === 0 || questionQ === questions.length){
+    if (timerCount === 0 || questions.numb === questions.length){
     
         endQuizz();
     }
@@ -83,16 +83,30 @@ var countDown = function(){
 
 var startQuestionQ = function(){
     countDown();
-    var nextQuestion = "";
+    var nextQuestion = document.getElementById("question-text");
+    nextQuestion.textContent = questions.question;
+
+
+    btn1 = document.getElementById("btn1");
+    btn2 = document.getElementById("btn2");
+    btn3 = document.getElementById("btn3");
+    btn4 = document.getElementById("btn4");
+
+    btn1.textContent = questions.answers[0]
+    btn2.textContent = questions.answers[1]
+    btn3.textContent = questions.answers[2]
+    btn4.textContent = questions.answers[3]
+
     for (let i = 0; questionQ < questions.length; i++) {
-        nextQuestion= questionQ[i] ;
+        nextQuestion++ ;
     }
 };
 
-var checkCorrect = function(){
-    var checkAnswer = questions.correctAns[i];
+var checkCorrect = function(event){
+    var checkAnswer = questions.correctAns;
+    var selectedAnsw = event.target;
     for (let i = 0; questionQ < questions.length; i++){
-        if (checkAnswer !== correctAns){
+        if (checkAnswer !== selectedAnsw){
             timerCount = timerCount - 10;
         };
     };
