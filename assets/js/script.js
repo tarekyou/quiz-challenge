@@ -59,14 +59,14 @@ let questions = [
 //start code
 
 let initialTime = 75;
-let questionQ = [questions[i]];
+let questionQ = [questions];
 
 
 
 
 
 var startBtn = document.getElementById("start-button");
-startBtn.addEventListener("click", startQuestionQ);
+
 
 
 
@@ -108,4 +108,7 @@ var checkCorrect = function(){
 
 var endQuizz = function(){
     alert("Game over");
-}
+};
+startBtn.addEventListener("click", startQuestionQ);
+
+//startQuestionQ();
