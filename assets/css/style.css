@@ -19,6 +19,11 @@ header{
     color: purple;
 }
 
+.view-high-scores a{
+    color: inherit;
+    text-decoration: none;
+}
+
 main{
     display: flex;
      justify-content: space-between;
