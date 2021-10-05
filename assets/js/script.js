@@ -106,15 +106,18 @@ var startQuestionQ = function(){
     // }
 };
 
-var checkCorrect = function(event){
-    console.log('checkCorrect');
+var checkCorrect = function(){
+   // console.log('checkCorrect');
     var checkAnswer = questions[questionQ].correctAns;
-    var selectedAnsw = event.target;
-    for (let i = 0; questionQ < questions.length; i++){
-        if (checkAnswer !== selectedAnsw){
+    var selectedAnsw = document.getElementById("answers-body");
+    selectedAnsw.addEventListener("click", function(event){
+    var clickedAnsw = event.target;
+    
+   // for (let i = 0; questionQ < questions.length; i++){
+        if (clickedAnsw !== checkAnswer){
             initialTime = initialTime -10;
-        };
-    };
+     } });
+   // };
     
     questionQ++;
     startQuestionQ();
@@ -131,7 +134,11 @@ btn4.addEventListener("click", checkCorrect);
 
 
 
-
+function startQuiz(){
+    countDown();
+    startQuestionQ();
+    checkCorrect();
+};
 
 
 
@@ -140,6 +147,6 @@ var endQuizz = function(){
     alert("Game over");
     clearInterval(timerCount);
 };
-startBtn.addEventListener("click", startQuestionQ);
+startBtn.addEventListener("click", startQuiz);
 
 //startQuestionQ();
