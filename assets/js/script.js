@@ -59,9 +59,9 @@ let questions = [
 
 //start code
 
-let initialTime = 75;
+let initialTime = 200;
 let questionQ = 0;
-var timerCount = setInterval(countDown, 1000);
+var timerCount ;
 var highSco = document.getElementById("view-high-scores");
 var goBack = document.getElementById("go-back");
 var clearHigh = document.getElementById("clear-high-scores");
@@ -72,28 +72,31 @@ var btn4 = document.getElementById("btn4");
 var selectedAnsw = document.getElementById("answers-body");
 var openPage = document.getElementById("opening-page");
 var questionList = document.getElementById("question-list");
-var questionText = document.getElementById("question-text");
+var nextQuestion = document.getElementById("question-text");
 var closingPage = document.getElementById("closing-page");
 var highScorePage = document.getElementById("high-scores");
+var playersInitials = document.getElementById("playersinitials");
 
 
 
 var startBtn = document.getElementById("start-button");
 var initialTimeEl = document.getElementById("time-left");
 var score = 0;
-var keepScore = [];
+var keepScore =  JSON.parse(localStorage.getItem("score")) || [];
 var submitScore = document.getElementById("submit");
-
+var playerInitial = document.getElementById("initials");
 
 function landingPage(){
-
+// highScorePage.style.display = "none";
+// questionList.style.display = "none";
+// closingPage.style.display = "none";
 };
 
 
 function countDown(){
     initialTime--;
     initialTimeEl.textContent = initialTime;
-    if (initialTime === 0 || questions[questionQ].numb === questions.length){
+    if (initialTime === 0 || questions[questionQ].numb -1 === questions.length){
     
         endQuizz();
     }
@@ -104,9 +107,12 @@ function countDown(){
 
 
 var startQuestionQ = function(){
+    // highScorePage.style.display = "none";
+    // openPage.style.display = "none";
+    // closingPage.style.display = "none";
     //countDown();
     var q = questions[questionQ];
-    var nextQuestion = document.getElementById("question-text");
+    //var nextQuestion = document.getElementById("question-text");
     //console.log(nextQuestion);
     nextQuestion.textContent = q.question;
 
@@ -122,23 +128,31 @@ var startQuestionQ = function(){
     //     nextQuestion++ ;
     // }
 };
-var checkAnswer = questions[questionQ].correctAns;
+
 var checkCorrect = function(){
    // console.log('checkCorrect');
     // var checkAnswer = questions[questionQ].correctAns;
     // var selectedAnsw = document.getElementById("answers-body");
-    selectedAnsw.addEventListener("click", function(event){
-    var clickedAnsw = event.target;
-    
+  
+    // var clickedAnsw = event.target;
+    var checkAnswer = questions[questionQ].correctAns;
+    console.log(this.textContent);
+    console.log(checkAnswer);
    // for (let i = 0; questionQ < questions.length; i++){}
-        if (clickedAnsw.textContent != checkAnswer){
+        if (this.textContent !== checkAnswer){
             initialTime = initialTime -10;
-     } });
+     } ;
+     questionQ++;
+     if (questionQ >= questions.length) {
+         endQuizz();
+     } else{
+        startQuestionQ();
+     }
 
-    questionQ++;
-    startQuestionQ();
+    
+    
        
-       let score = initialTime;
+        score = initialTime;
        return score;
 };    
 
@@ -154,9 +168,9 @@ btn4.addEventListener("click", checkCorrect);
 
 
 function startQuiz(){
-    countDown();
+    timerCount =  setInterval(countDown, 1000);
     startQuestionQ();
-    checkCorrect();
+    // checkCorrect();
 };
 
 
@@ -165,17 +179,33 @@ function startQuiz(){
 
 
 var endQuizz = function(){
+    // highScorePage.style.display = "none";
+    questionList.style.display = "none";
+    // openPage.style.display = "none";
     alert("Game over");
     clearInterval(timerCount);
 };
 
 function highScore(){
-    keepScore.push(score);
-    localStorage.setItem("score", score);
+    // openPage.style.display = "none";
+    // questionList.style.display = "none";
+    // closingPage.style.display = "none";
+    var userInitials = {
+        name: playerInitial.value,
+        score: score,
+    }
+    keepScore.push(userInitials);
+    localStorage.setItem("score", JSON.stringify (keepScore));
 };
 
 function retrieveHigh(){
-   JSON.parse(localStorage.getItem(score));
+   //JSON.parse(localStorage.getItem("score"));
+   for (let i = 0; i < keepScore.length; i++) {
+       var liEl = document.createElement("li");
+       liEl.textContent = ("player: " + keepScore[i].name + " score: " + keepScore[i].score);
+       playersInitials.append(liEl);
+       
+   }
 };
 
 
