@@ -8,7 +8,7 @@ let questions = [
             "quotes",
             "parenthesis"
         ],
-        correctAns: "quotes"
+        correctAns: "quotes",
     },
     {
         numb: 2,
@@ -19,7 +19,7 @@ let questions = [
             "alerts",
             "numbers"
         ],
-        correctAns: "alerts"
+        correctAns: "alerts",
     },
     {
         numb: 3,
@@ -30,7 +30,7 @@ let questions = [
             "for loops",
             "console.log"
         ],
-        correctAns: "console.log"
+        correctAns: "console.log",
     },
     {
         numb: 4,
@@ -41,7 +41,7 @@ let questions = [
             "parenthesis",
             "square brackets"
         ],
-        correctAns: "parenthesis"
+        correctAns: "parenthesis",
     },
     {
         numb: 5,
@@ -52,7 +52,7 @@ let questions = [
             "booleans",
             "all of the above"
         ],
-        correctAns: "all of the above"
+        correctAns: "all of the above",
     },
 ];
 
@@ -69,6 +69,11 @@ var btn2 = document.getElementById("btn2");
 var btn3 = document.getElementById("btn3");
 var btn4 = document.getElementById("btn4");
 var selectedAnsw = document.getElementById("answers-body");
+var openPage = document.getElementById("opening-page");
+var questionList = document.getElementById("question-list");
+var questionText = document.getElementById("question-text");
+var closingPage = document.getElementById("closing-page");
+var highScorePage = document.getElementById("high-scores");
 
 
 
@@ -120,11 +125,12 @@ var checkCorrect = function(){
     var clickedAnsw = event.target;
     
    // for (let i = 0; questionQ < questions.length; i++){
-        if (clickedAnsw !== checkAnswer){
+        if (clickedAnsw != checkAnswer){
             initialTime = initialTime -10;
      } });
    // };
-    
+    let score = initialTime;
+    return score;
     questionQ++;
     startQuestionQ();
 };    
@@ -147,7 +153,12 @@ function startQuiz(){
 };
 
 function highScore(){
+    keepScore.push(score);
+    localStorage.setItem("score", score);
+};
 
+function retrieveHigh(){
+   JSON.parse(localStorage.getItem(score));
 }
 
 
