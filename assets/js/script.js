@@ -8,6 +8,7 @@ let questions = [
             "quotes",
             "parenthesis"
         ],
+       // correctAns: 3,
         correctAns: "quotes",
     },
     {
@@ -81,7 +82,12 @@ var startBtn = document.getElementById("start-button");
 var initialTimeEl = document.getElementById("time-left");
 var score = 0;
 var keepScore = [];
+var submitScore = document.getElementById("submit");
 
+
+function landingPage(){
+
+};
 
 
 function countDown(){
@@ -124,15 +130,16 @@ var checkCorrect = function(){
     selectedAnsw.addEventListener("click", function(event){
     var clickedAnsw = event.target;
     
-   // for (let i = 0; questionQ < questions.length; i++){
-        if (clickedAnsw != checkAnswer){
+   // for (let i = 0; questionQ < questions.length; i++){}
+        if (clickedAnsw.textContent != checkAnswer){
             initialTime = initialTime -10;
      } });
-   // };
-    let score = initialTime;
-    return score;
+
     questionQ++;
     startQuestionQ();
+       
+       let score = initialTime;
+       return score;
 };    
 
 //var btn1 = document.getElementById("btn1");
@@ -152,14 +159,7 @@ function startQuiz(){
     checkCorrect();
 };
 
-function highScore(){
-    keepScore.push(score);
-    localStorage.setItem("score", score);
-};
 
-function retrieveHigh(){
-   JSON.parse(localStorage.getItem(score));
-}
 
 
 
@@ -168,6 +168,21 @@ var endQuizz = function(){
     alert("Game over");
     clearInterval(timerCount);
 };
+
+function highScore(){
+    keepScore.push(score);
+    localStorage.setItem("score", score);
+};
+
+function retrieveHigh(){
+   JSON.parse(localStorage.getItem(score));
+};
+
+
 startBtn.addEventListener("click", startQuiz);
+highSco.addEventListener("click", retrieveHigh);
+submitScore.addEventListener("click", highScore);
+goBack.addEventListener("click", landingPage);
+
 
 //startQuestionQ();
