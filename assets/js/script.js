@@ -78,7 +78,6 @@ var highScorePage = document.getElementById("high-scores");
 var playersInitials = document.getElementById("playersinitials");
 
 
-
 var startBtn = document.getElementById("start-button");
 var initialTimeEl = document.getElementById("time-left");
 var score = 0;
@@ -196,23 +195,32 @@ function highScore(){
     }
     keepScore.push(userInitials);
     localStorage.setItem("score", JSON.stringify (keepScore));
+    for (let i = 0; i < keepScore.length; i++) {
+        var liEl = document.createElement("li");
+        liEl.textContent = ("player: " + keepScore[i].name + " score: " + keepScore[i].score);
+        playersInitials.append(liEl);
+    }
 };
 
 function retrieveHigh(){
    //JSON.parse(localStorage.getItem("score"));
-   for (let i = 0; i < keepScore.length; i++) {
-       var liEl = document.createElement("li");
-       liEl.textContent = ("player: " + keepScore[i].name + " score: " + keepScore[i].score);
-       playersInitials.append(liEl);
-       
-   }
+    // openPage.style.display = "none";
+    // questionList.style.display = "none";
+    // closingPage.style.display = "none";
+   
 };
+
+function clearHighScore(){
+    localStorage.clear();
+}
 
 
 startBtn.addEventListener("click", startQuiz);
 highSco.addEventListener("click", retrieveHigh);
 submitScore.addEventListener("click", highScore);
 goBack.addEventListener("click", landingPage);
+clearHigh.addEventListener("click", clearHighScore);
+
 
 
 //startQuestionQ();
