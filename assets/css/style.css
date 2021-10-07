@@ -35,9 +35,12 @@ main{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    align-self: center;
+    align-items: center;
 }
 #question-text{
     text-align: center;
+    flex: 1 100%;
 }
 #opening-page, #question-list, #closing-page, #high-scores {
     text-align: center;
