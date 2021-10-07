@@ -133,6 +133,7 @@ function countDown(){
     // for (let i = 0; questionQ < questions.length; i++) {
     //     nextQuestion++ ;
     // }
+   
 };
 
 function checkCorrect (){
@@ -160,10 +161,13 @@ function checkCorrect (){
      }
 
     
-    
+     
+
        
         score = initialTime;
+        
        return score;
+       
 };    
 
 //var btn1 = document.getElementById("btn1");
@@ -181,6 +185,7 @@ function startQuiz(){
    timerCount =  setInterval(countDown, 1000);
     startQuestionQ();
     // checkCorrect();
+    
 };
 
 
@@ -195,6 +200,7 @@ function endQuizz (){
     // openPage.style.display = "none";
     alert("Game over! Enter your initials");
     clearInterval(timerCount);
+   
 };
 
 function highScore(event){
@@ -211,6 +217,10 @@ function highScore(event){
         score: score,
     }
     if (score === 0) return;
+    if (playerInitial.value === ""){
+        alert("Must enter initials")
+        return;
+    };
     keepScore.push(userInitials);
     //console.log("keepscore", keepScore);
     localStorage.setItem("score", JSON.stringify (keepScore));
