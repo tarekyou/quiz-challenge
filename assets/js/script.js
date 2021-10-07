@@ -84,8 +84,14 @@ var score = 0;
 var keepScore =  JSON.parse(localStorage.getItem("score")) || [];
 var submitScore = document.getElementById("submit");
 var playerInitial = document.getElementById("initials");
+var formEl = document.getElementById("form");
+var displayScore = document.getElementById("displayscore");
+var rightWrong = document.getElementById("rightwrong");
+    
+//}
 
 function landingPage(){
+// openPage.style.display = "block";
 // highScorePage.style.display = "none";
 // questionList.style.display = "none";
 // closingPage.style.display = "none";
@@ -93,10 +99,10 @@ function landingPage(){
 
 
 function countDown(){
+    
     initialTime--;
     initialTimeEl.textContent = initialTime;
     if (initialTime === 0 || questions[questionQ].numb -1 === questions.length){
-    
         endQuizz();
     }
   // return timerCount;
@@ -105,7 +111,8 @@ function countDown(){
 
 
 
-var startQuestionQ = function(){
+ function startQuestionQ (){
+    // questionList.style.display = "block";
     // highScorePage.style.display = "none";
     // openPage.style.display = "none";
     // closingPage.style.display = "none";
@@ -128,7 +135,7 @@ var startQuestionQ = function(){
     // }
 };
 
-var checkCorrect = function(){
+function checkCorrect (){
 //    console.log('checkCorrect');
     // var checkAnswer = questions[questionQ].correctAns;
     // var selectedAnsw = document.getElementById("answers-body");
@@ -140,9 +147,13 @@ var checkCorrect = function(){
    // for (let i = 0; questionQ < questions.length; i++){}
         if (this.textContent !== checkAnswer){
             initialTime = initialTime -10;
-     } ;
+            rightWrong.textContent = "wrong";
+     } 
+        else {
+          rightWrong.textContent = " right";
+     };
      questionQ++;
-     if (questionQ >= questions.length) {
+     if (questionQ  >= questions.length) {
          endQuizz();
      } else{
         startQuestionQ();
@@ -167,7 +178,7 @@ btn4.addEventListener("click", checkCorrect);
 
 
 function startQuiz(){
-    timerCount =  setInterval(countDown, 1000);
+   timerCount =  setInterval(countDown, 1000);
     startQuestionQ();
     // checkCorrect();
 };
@@ -177,46 +188,50 @@ function startQuiz(){
 
 
 
-var endQuizz = function(){
+function endQuizz (){
+    // closingPage.style.display = "block";
     // highScorePage.style.display = "none";
-    //questionList.style.display = "none";
+    // questionList.style.display = "none";
     // openPage.style.display = "none";
-    alert("Game over");
+    alert("Game over! Enter your initials");
     clearInterval(timerCount);
 };
 
 function highScore(event){
-    //if they don't have a score prevent them from submitting score
+
     
     event.preventDefault();
-    console.log("highscore");
+   // console.log("highscore");
     // openPage.style.display = "none";
     // questionList.style.display = "none";
     // closingPage.style.display = "none";
+    //landingPage();
     var userInitials = {
         name: playerInitial.value,
         score: score,
     }
     if (score === 0) return;
     keepScore.push(userInitials);
-    console.log("keepscore", keepScore);
+    //console.log("keepscore", keepScore);
     localStorage.setItem("score", JSON.stringify (keepScore));
-    console.log(keepScore.length);
+    //console.log(keepScore.length);
     updateHighScoreList();
 };
 function updateHighScoreList(){
+    displayScore.textContent = "Your final score is " + score;
     for (let i = 0; i < keepScore.length; i++) {
         var liEl = document.createElement("li");
         liEl.textContent = ("player: " + keepScore[i].name + " score: " + keepScore[i].score);
         console.log(liEl);
         playersInitials.append(liEl);
     }
+   
 console.log("loop done");
 }
 
 function retrieveHigh(){
     //clear highscore container
-    //propagate highcore container
+    // highScorePage.style.display = "block";
     // openPage.style.display = "none";
     // questionList.style.display = "none";
     // closingPage.style.display = "none";
