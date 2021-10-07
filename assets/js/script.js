@@ -186,6 +186,8 @@ var endQuizz = function(){
 };
 
 function highScore(event){
+    //if they don't have a score prevent them from submitting score
+    
     event.preventDefault();
     console.log("highscore");
     // openPage.style.display = "none";
@@ -195,10 +197,14 @@ function highScore(event){
         name: playerInitial.value,
         score: score,
     }
+    if (score === 0) return;
     keepScore.push(userInitials);
     console.log("keepscore", keepScore);
     localStorage.setItem("score", JSON.stringify (keepScore));
     console.log(keepScore.length);
+    updateHighScoreList();
+};
+function updateHighScoreList(){
     for (let i = 0; i < keepScore.length; i++) {
         var liEl = document.createElement("li");
         liEl.textContent = ("player: " + keepScore[i].name + " score: " + keepScore[i].score);
@@ -206,20 +212,22 @@ function highScore(event){
         playersInitials.append(liEl);
     }
 console.log("loop done");
-    // return liEl;
-};
+}
 
 function retrieveHigh(){
-   //JSON.parse(localStorage.getItem("score"));
+    //clear highscore container
+    //propagate highcore container
     // openPage.style.display = "none";
     // questionList.style.display = "none";
     // closingPage.style.display = "none";
     var keepScore =  JSON.parse(localStorage.getItem("score")) || [];
     console.log(keepScore);
+    updateHighScoreList();
    
 };
 
 function clearHighScore(){
+    //if local storage is already empty do not do anything
     localStorage.clear("score");
     playersInitials.innerHTML = "";
 }
