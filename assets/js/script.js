@@ -75,7 +75,7 @@ var questionList = document.getElementById("question-list");
 var nextQuestion = document.getElementById("question-text");
 var closingPage = document.getElementById("closing-page");
 var highScorePage = document.getElementById("high-scores");
-var playersInitials = document.getElementById("playersinitials");
+var playersInitials = document.getElementById("playersintials");
 
 
 var startBtn = document.getElementById("start-button");
@@ -129,14 +129,14 @@ var startQuestionQ = function(){
 };
 
 var checkCorrect = function(){
-   // console.log('checkCorrect');
+//    console.log('checkCorrect');
     // var checkAnswer = questions[questionQ].correctAns;
     // var selectedAnsw = document.getElementById("answers-body");
   
     // var clickedAnsw = event.target;
     var checkAnswer = questions[questionQ].correctAns;
-    console.log(this.textContent);
-    console.log(checkAnswer);
+    // console.log(this.textContent);
+    // console.log(checkAnswer);
    // for (let i = 0; questionQ < questions.length; i++){}
         if (this.textContent !== checkAnswer){
             initialTime = initialTime -10;
@@ -179,13 +179,15 @@ function startQuiz(){
 
 var endQuizz = function(){
     // highScorePage.style.display = "none";
-    questionList.style.display = "none";
+    //questionList.style.display = "none";
     // openPage.style.display = "none";
     alert("Game over");
     clearInterval(timerCount);
 };
 
-function highScore(){
+function highScore(event){
+    event.preventDefault();
+    console.log("highscore");
     // openPage.style.display = "none";
     // questionList.style.display = "none";
     // closingPage.style.display = "none";
@@ -194,12 +196,17 @@ function highScore(){
         score: score,
     }
     keepScore.push(userInitials);
+    console.log("keepscore", keepScore);
     localStorage.setItem("score", JSON.stringify (keepScore));
+    console.log(keepScore.length);
     for (let i = 0; i < keepScore.length; i++) {
         var liEl = document.createElement("li");
         liEl.textContent = ("player: " + keepScore[i].name + " score: " + keepScore[i].score);
+        console.log(liEl);
         playersInitials.append(liEl);
     }
+console.log("loop done");
+    // return liEl;
 };
 
 function retrieveHigh(){
@@ -207,11 +214,14 @@ function retrieveHigh(){
     // openPage.style.display = "none";
     // questionList.style.display = "none";
     // closingPage.style.display = "none";
+    var keepScore =  JSON.parse(localStorage.getItem("score")) || [];
+    console.log(keepScore);
    
 };
 
 function clearHighScore(){
-    localStorage.clear();
+    localStorage.clear("score");
+    playersInitials.innerHTML = "";
 }
 
 
