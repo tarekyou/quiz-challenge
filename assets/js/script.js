@@ -59,7 +59,7 @@ let questions = [
 
 //start code
 
-let initialTime = 200;
+let initialTime = 100;
 let questionQ = 0;
 var timerCount ;
 var highSco = document.getElementById("view-high-scores");
@@ -87,7 +87,7 @@ var playerInitial = document.getElementById("initials");
 var formEl = document.getElementById("form");
 var displayScore = document.getElementById("displayscore");
 var rightWrong = document.getElementById("rightwrong");
-    
+ 
 //}
 
 function landingPage(){
@@ -101,10 +101,13 @@ function landingPage(){
 function countDown(){
     
     initialTime--;
-    initialTimeEl.textContent = initialTime;
+    initialTimeEl.textContent = "Time left " + initialTime;
     if (initialTime === 0 || questions[questionQ].numb -1 === questions.length){
+        // initialTime = 0;
         endQuizz();
+    
     }
+    
   // return timerCount;
   
 };
@@ -148,9 +151,11 @@ function checkCorrect (){
    // for (let i = 0; questionQ < questions.length; i++){}
         if (this.textContent !== checkAnswer){
             initialTime = initialTime -10;
+          
             rightWrong.textContent = "wrong";
      } 
         else {
+        
           rightWrong.textContent = " right";
      };
      questionQ++;

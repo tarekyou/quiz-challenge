@@ -63,8 +63,12 @@ main{
     padding: 20px;
     margin: 20px;
 }
-
-
+#rightwrong{
+    font-style: italic;
+    font-size: 18px;
+    color: grey;
+    text-decoration: underline;
+}
 .btn {
     outline: none;
     border: none;
