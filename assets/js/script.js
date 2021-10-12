@@ -95,10 +95,10 @@ var rightWrong = document.getElementById("rightwrong");
 // };
 
 function landingPage(){
-// openPage.style.display = "block";
-// highScorePage.style.display = "none";
-// questionList.style.display = "none";
-// closingPage.style.display = "none";
+openPage.style.display = "block";
+highScorePage.style.display = "none";
+questionList.style.display = "none";
+closingPage.style.display = "none";
 };
 
 
@@ -119,10 +119,10 @@ function countDown(){
 
 
  function startQuestionQ (){ 
-    // questionList.style.display = "block";
-    // highScorePage.style.display = "none";
-    // openPage.style.display = "none";
-    // closingPage.style.display = "none";
+    questionList.style.display = "block";
+    highScorePage.style.display = "none";
+    openPage.style.display = "none";
+    closingPage.style.display = "none";
     //countDown();
     if (questionQ === questions.length){
         return 
@@ -169,17 +169,29 @@ function checkCorrect (){
           
      };
 
+    setTimeout(function(){
+        if (questionQ  >= questions.length) {
+            endQuizz();
+        } else{
+           questionQ++;
+           startQuestionQ();
+           rightWrong.textContent="";
+        }
+       
+           score = initialTime;
+           
+          return score;
+    }, 0.5 *  1000)
+    //  if (questionQ  >= questions.length) {
+    //      endQuizz();
+    //  } else{
+    //     questionQ++;
+    //     startQuestionQ();
+    //  }
     
-     if (questionQ  >= questions.length) {
-         endQuizz();
-     } else{
-        questionQ++;
-        startQuestionQ();
-     }
-    
-        score = initialTime;
+    //     score = initialTime;
         
-       return score;
+    //    return score;
        
 };    
 
@@ -210,24 +222,31 @@ function startQuiz(){
 
 
 function endQuizz (){
-    // closingPage.style.display = "block";
-    // highScorePage.style.display = "none";
-    // questionList.style.display = "none";
-    // openPage.style.display = "none";
+    closingPage.style.display = "block";
+    highScorePage.style.display = "none";
+    questionList.style.display = "none";
+    openPage.style.display = "none";
     displayScore.textContent = "Your final score is " + score;
     alert("Game over! Enter your initials");
+    
+
     clearInterval(timerCount);
    
 };
 
 function highScore(event){
+    highScorePage.style.display = "block";
+    openPage.style.display = "none";
+    questionList.style.display = "none";
+    closingPage.style.display = "none";
 
     
+    
     event.preventDefault();
-   // console.log("highscore");
-    // openPage.style.display = "none";
-    // questionList.style.display = "none";
-    // closingPage.style.display = "none";
+   console.log("highscore");
+    openPage.style.display = "none";
+    questionList.style.display = "none";
+    closingPage.style.display = "none";
     //landingPage();
     var userInitials = {
         name: playerInitial.value,
@@ -258,10 +277,10 @@ console.log("loop done");
 
 function retrieveHigh(){
     //clear highscore container
-    // highScorePage.style.display = "block";
-    // openPage.style.display = "none";
-    // questionList.style.display = "none";
-    // closingPage.style.display = "none";
+    highScorePage.style.display = "block";
+    openPage.style.display = "none";
+    questionList.style.display = "none";
+    closingPage.style.display = "none";
     keepScore =  JSON.parse(localStorage.getItem("score")) || [];
     console.log(keepScore);
     updateHighScoreList();
